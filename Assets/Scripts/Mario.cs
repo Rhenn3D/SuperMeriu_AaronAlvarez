@@ -2,19 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Goomba : MonoBehaviour
+public class Mario : MonoBehaviour
 {
     public float playerSpeed = 4.5f;
     public int direction = 1;
     private float inputHorizontal;
     private Rigidbody2D rigidBody;
-    public float jumpForce = 10;
+    public float jumpForce = 12;
     public GroundSensor groundSensor;
+    private SpriteRenderer spriteRenderer;
 
     void Awake()
     { 
         rigidBody = GetComponent<Rigidbody2D>();
         groundSensor = GetComponentInChildren<GroundSensor>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
     // Start is called before the first frame update
     void Start()
@@ -32,13 +34,32 @@ public class Goomba : MonoBehaviour
         //transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + inputHorizontal, transform.position.y), playerSpeed * Time.deltaTime);
         if(Input.GetButtonDown("Jump") && groundSensor.IsGrounded)
         {
-            rigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            Jump();
         }
+        Movement();
     }
+    
     void FixedUpdate()
     {
         rigidBody.velocity = new Vector2(inputHorizontal * playerSpeed, rigidBody.velocity.y);
         //rigidBody.AddForce(new Vector2(inputHorizontal, 0));
         //rigidBody.MovePosition(new Vector2(100, 0));
     }
+
+    void Movement()
+    {
+        if(inputHorizontal > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if(inputHorizontal < 0)
+        {
+            spriteRenderer.flipX = true;    
+        }
+    }
+    void Jump()
+    {
+        rigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+    }
+    
 }

@@ -34,5 +34,7 @@ public class PrimerScript : MonoBehaviour
         Debug.Log(numeroEntero);
         numeroEntero ++; // Con ++ sumo 1 y con -- Resto 1
         numeroEntero -= 5; // Puedo sumar o restar el valor que yo quiera
+
     }
+
 }
