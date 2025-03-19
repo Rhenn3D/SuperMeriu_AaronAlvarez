@@ -11,12 +11,14 @@ public class Mario : MonoBehaviour
     public float jumpForce = 12;
     public GroundSensor groundSensor;
     private SpriteRenderer spriteRenderer;
+    private Animator animator;
 
     void Awake()
     { 
         rigidBody = GetComponent<Rigidbody2D>();
         groundSensor = GetComponentInChildren<GroundSensor>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
     // Start is called before the first frame update
     void Start()
@@ -37,6 +39,14 @@ public class Mario : MonoBehaviour
             Jump();
         }
         Movement();
+        animator.SetBool("IsJumping", !groundSensor.IsGrounded);
+        /*if(groundSensor.IsGrounded)
+        {
+            animator.SetBool("IsJumping", false);
+        else
+        {
+            animator.SetBool("IsJumping", true)
+        }*/
     }
     
     void FixedUpdate()
@@ -51,15 +61,21 @@ public class Mario : MonoBehaviour
         if(inputHorizontal > 0)
         {
             spriteRenderer.flipX = false;
+            animator.SetBool("IsRunning", true);
         }
         else if(inputHorizontal < 0)
         {
-            spriteRenderer.flipX = true;    
+            spriteRenderer.flipX = true;
+            animator.SetBool("IsRunning", true);  
         }
+        else
+            animator.SetBool("IsRunning", false);
+        
     }
     void Jump()
     {
         rigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        animator.SetBool("isJumping", true);
     }
     
 }
