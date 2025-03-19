@@ -12,9 +12,12 @@ public class CameraMovement : MonoBehaviour
     public Vector2 minPosition;
     public float interpolationRatio = 0.05f;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        //Busca un objeto por el nombre en la escena
+        //playerTransform = GameObject.Find("Mario").transform;
+        //Busca un objeto por tag (este va mas rapido)
+        playerTransform = GameObject.FindWithTag("Player").transform;
     }
 
     // Update is called once per frame

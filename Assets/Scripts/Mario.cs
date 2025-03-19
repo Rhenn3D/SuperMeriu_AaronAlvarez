@@ -12,6 +12,8 @@ public class Mario : MonoBehaviour
     public GroundSensor groundSensor;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
+    private AudioSource audioSource;
+    public AudioClip jumpSFX;
 
     void Awake()
     { 
@@ -19,6 +21,7 @@ public class Mario : MonoBehaviour
         groundSensor = GetComponentInChildren<GroundSensor>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
     // Start is called before the first frame update
     void Start()
@@ -76,6 +79,7 @@ public class Mario : MonoBehaviour
     {
         rigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         animator.SetBool("isJumping", true);
+        audioSource.PlayOneShot(jumpSFX);
     }
     
 }
