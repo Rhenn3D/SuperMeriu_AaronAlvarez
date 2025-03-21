@@ -4,41 +4,46 @@ using UnityEngine;
 
 public class Goomba : MonoBehaviour
 {
-    public float playerSpeed = 4.5f;
-    public int direction = 1;
-    private float inputHorizontal;
+
+    private Animator animator;
+    private AudioSource audioSource;
+
+    public AudioClip goombadeathSFX;
     private Rigidbody2D rigidBody;
-    public float jumpForce = 10;
-    public GroundSensor groundSensor;
+    public int direction = -1;
+    public float speed = 5;
 
+    private BoxCollider2D boxCollider;
     void Awake()
-    { 
-        rigidBody = GetComponent<Rigidbody2D>();
-        groundSensor = GetComponentInChildren<GroundSensor>();
-    }
-    // Start is called before the first frame update
-    void Start()
     {
-        //tp al goomba
-        //transform.position = new Vector3 (0, 0, 0);
+        animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+        rigidBody = GetComponent<Rigidbody2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        inputHorizontal = Input.GetAxisRaw("Horizontal");
-        //transform.position = new Vector3(transform.position.x + direction * playerSpeed * Time.deltaTime, transform.position.y, transform.position.z);
-        //transform.Translate(new Vector3 (direction * playerSpeed * Time.deltaTime, 0, 0));
-        //transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + inputHorizontal, transform.position.y), playerSpeed * Time.deltaTime);
-        if(Input.GetButtonDown("Jump") && groundSensor.IsGrounded)
-        {
-            rigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        }
-    }
     void FixedUpdate()
     {
-        rigidBody.velocity = new Vector2(inputHorizontal * playerSpeed, rigidBody.velocity.y);
-        //rigidBody.AddForce(new Vector2(inputHorizontal, 0));
-        //rigidBody.MovePosition(new Vector2(100, 0));
+        rigidBody.velocity = new Vector2(direction * speed, rigidBody.velocity.y);
+    }
+
+    public void Death()
+    {
+        direction = 0;
+        rigidBody.gravityScale = 0;
+        animator.SetTrigger("IsDead");
+        boxCollider.enabled = false;
+        Destroy(gameObject, 0.3f);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        direction *= -1;
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            Destroy(collision.gameObject);
+        }
+        
     }
 }
+
