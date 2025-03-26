@@ -30,10 +30,10 @@ public class SoundManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!gameManager.isPlaying && !timerFinished)
+        /*if(!gameManager.isPlaying && !timerFinished)
         {
-            DeathBGM();   
-        }
+            DeathBGM();  
+        }*/ 
     }
 
     void PlayBGM()
@@ -43,7 +43,20 @@ public class SoundManager : MonoBehaviour
         audioSource.Play();
     }
 
-    public void DeathBGM()
+
+    public void PauseBGM()
+    {
+        if(gameManager.isPaused)
+        {
+            audioSource.Pause();
+        }
+        else
+        {
+            audioSource.Play();
+        }
+    }
+
+    /*public void DeathBGM()
     {
         audioSource.Stop();
         timer += Time.deltaTime; //Como el deltatime calcula el tiempo entre un frame y otro, el TIMER irá sumando el tiempo
@@ -52,5 +65,13 @@ public class SoundManager : MonoBehaviour
             timerFinished = true;
             audioSource.PlayOneShot(gameOver);
         }
+    }*/
+    public IEnumerator DeathBGM()
+    {
+        audioSource.Stop();
+        yield return new WaitForSeconds(delay);
+        audioSource.PlayOneShot(gameOver);
     }
+
+    
 }

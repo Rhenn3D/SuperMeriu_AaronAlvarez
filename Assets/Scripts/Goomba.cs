@@ -22,6 +22,11 @@ public class Goomba : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
     }
 
+    void Start()
+    {
+        speed = 0;
+    }
+
     void FixedUpdate()
     {
         rigidBody.velocity = new Vector2(direction * speed, rigidBody.velocity.y);
@@ -38,7 +43,11 @@ public class Goomba : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        direction *= -1;
+        if(collision.gameObject.CompareTag("Tuberia") || collision.gameObject.layer == 6);
+        {
+            direction *= -1;
+        }
+        
         if(collision.gameObject.CompareTag("Player"))
         {
             //Destroy(collision.gameObject);
@@ -46,6 +55,17 @@ public class Goomba : MonoBehaviour
             playerScript.Death();
         }
         
+    }
+
+
+    void OnBecameVisible()
+    {
+        speed = 2;
+    }
+
+    void OnBecameInvisible()
+    {
+        speed = 0;
     }
 }
 

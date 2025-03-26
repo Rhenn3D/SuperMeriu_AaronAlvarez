@@ -43,7 +43,12 @@ public class Mario : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if(!gameManager.isPlaying)
+        {
+            return;
+        }
+        if(gameManager.isPaused)
         {
             return;
         }
@@ -102,12 +107,14 @@ public class Mario : MonoBehaviour
         animator.SetTrigger("IsDead");
         audioSource.PlayOneShot(deadSFX);
         boxCollider.enabled = false;
-        rigidBody.gravityScale = 0;
         Destroy(groundSensor.gameObject);
         inputHorizontal = 0;
         rigidBody.velocity = Vector2.zero;
         //soundManager.Invoke("DeathBGM", 6);
+        StartCoroutine(soundManager.DeathBGM());
+        rigidBody.AddForce(Vector2.up * jumpForce/1.5f, ForceMode2D.Impulse);
         gameManager.isPlaying = false;
+        Destroy(gameObject, 2);
     
     }
     
