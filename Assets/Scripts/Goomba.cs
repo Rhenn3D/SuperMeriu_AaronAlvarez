@@ -41,7 +41,9 @@ public class Goomba : MonoBehaviour
         direction *= -1;
         if(collision.gameObject.CompareTag("Player"))
         {
-            Destroy(collision.gameObject);
+            //Destroy(collision.gameObject);
+            Mario playerScript = collision.gameObject.GetComponent<Mario>();
+            playerScript.Death();
         }
         
     }

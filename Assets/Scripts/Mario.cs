@@ -15,6 +15,13 @@ public class Mario : MonoBehaviour
     private AudioSource audioSource;
     public AudioClip jumpSFX;
 
+    public AudioClip deadSFX;
+
+    private BoxCollider2D boxCollider;
+    private GameManager gameManager;
+
+    private SoundManager soundManager;
+
     void Awake()
     { 
         rigidBody = GetComponent<Rigidbody2D>();
@@ -22,6 +29,9 @@ public class Mario : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        boxCollider = GetComponent<BoxCollider2D>();
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        soundManager = GameObject.Find("Sound Manager").GetComponent<SoundManager>();
     }
     // Start is called before the first frame update
     void Start()
@@ -33,6 +43,10 @@ public class Mario : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!gameManager.isPlaying)
+        {
+            return;
+        }
         inputHorizontal = Input.GetAxisRaw("Horizontal");
         //transform.position = new Vector3(transform.position.x + direction * playerSpeed * Time.deltaTime, transform.position.y, transform.position.z);
         //transform.Translate(new Vector3 (direction * playerSpeed * Time.deltaTime, 0, 0));
@@ -80,6 +94,21 @@ public class Mario : MonoBehaviour
         rigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         animator.SetBool("isJumping", true);
         audioSource.PlayOneShot(jumpSFX);
+    }
+
+    public void Death()
+    {
+        
+        animator.SetTrigger("IsDead");
+        audioSource.PlayOneShot(deadSFX);
+        boxCollider.enabled = false;
+        rigidBody.gravityScale = 0;
+        Destroy(groundSensor.gameObject);
+        inputHorizontal = 0;
+        rigidBody.velocity = Vector2.zero;
+        //soundManager.Invoke("DeathBGM", 6);
+        gameManager.isPlaying = false;
+    
     }
     
 }
