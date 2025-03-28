@@ -59,7 +59,7 @@ public class SoundManager : MonoBehaviour
     /*public void DeathBGM()
     {
         audioSource.Stop();
-        timer += Time.deltaTime; //Como el deltatime calcula el tiempo entre un frame y otro, el TIMER irá sumando el tiempo
+        timer += Time.deltaTime; //Como el deltatime calcula el tiempo entre un frame y otro, el TIMER irá sumando el tiempo  //CRONOMETRO
         if(timer >= delay)
         {
             timerFinished = true;

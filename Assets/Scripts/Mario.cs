@@ -21,6 +21,14 @@ public class Mario : MonoBehaviour
     private GameManager gameManager;
 
     private SoundManager soundManager;
+    public Transform bulletSpawn;
+    public GameObject bulletPrefab;
+    public AudioClip shootSFX;
+    public float powerUpDuration = 5;
+    public float powerUpTimer;
+    public bool canShoot = false;
+    public AudioClip powerUpSFX;
+    private SpriteRenderer renderer;
 
     void Awake()
     { 
@@ -69,6 +77,14 @@ public class Mario : MonoBehaviour
         {
             animator.SetBool("IsJumping", true)
         }*/
+        if(Input.GetButtonDown("Fire1") && canShoot)
+        {
+            Shoot();
+        }
+        if(canShoot)
+        {
+            PowerUp();
+        }
     }
     
     void FixedUpdate()
@@ -82,12 +98,12 @@ public class Mario : MonoBehaviour
     {
         if(inputHorizontal > 0)
         {
-            spriteRenderer.flipX = false;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
             animator.SetBool("IsRunning", true);
         }
         else if(inputHorizontal < 0)
         {
-            spriteRenderer.flipX = true;
+            transform.rotation = Quaternion.Euler(0, 180, 0);
             animator.SetBool("IsRunning", true);  
         }
         else
@@ -116,6 +132,19 @@ public class Mario : MonoBehaviour
         gameManager.isPlaying = false;
         Destroy(gameObject, 2);
     
+    }
+    public void Shoot()
+    {
+        Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
+        audioSource.PlayOneShot(shootSFX);
+    }
+    void PowerUp()
+    {
+        powerUpTimer += Time.deltaTime;
+        if(powerUpTimer >= powerUpDuration)
+        {
+            canShoot = false;
+        }
     }
     
 }

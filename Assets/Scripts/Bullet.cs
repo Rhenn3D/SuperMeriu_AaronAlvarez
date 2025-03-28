@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     private Rigidbody2D rigidbody;
     public float bulletForce = 7.5f;
+    
 
 
 
@@ -16,19 +17,19 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody.AddForce(Vector2.right * bulletForce, ForceMode2D.Impulse);
+        rigidbody.AddForce(transform.right * bulletForce, ForceMode2D.Impulse);
     }
 
     // Update is called once per frame
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.gameObject.layer == 6);
+        if(collider.gameObject.layer == 6)
         {
             Goomba enemyScript = collider.gameObject.GetComponent<Goomba>();
             enemyScript.Death();
             BulletDeath();
         }
-        if(collider.gameObject.layer == 3)
+        if(collider.gameObject.CompareTag("Tuberia"))
         {
             BulletDeath();
         }
