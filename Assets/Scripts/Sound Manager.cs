@@ -14,6 +14,7 @@ public class SoundManager : MonoBehaviour
     private GameManager gameManager;
 
     private bool timerFinished = false;
+    public bool IsFinished = false;
 
 
     void Awake()
@@ -46,7 +47,7 @@ public class SoundManager : MonoBehaviour
 
     public void PauseBGM()
     {
-        if(gameManager.isPaused)
+        if(gameManager.isPaused || IsFinished)
         {
             audioSource.Pause();
         }
