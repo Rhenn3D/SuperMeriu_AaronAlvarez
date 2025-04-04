@@ -9,6 +9,7 @@ public class GroundSensor : MonoBehaviour
     public Goomba goomba;
     private Rigidbody2D rigidBody;
     private float jumpForce = 12;
+    public float jumpDamage = 5;
     void Awake()
     {
         rigidBody = GetComponentInParent<Rigidbody2D>();
@@ -27,7 +28,7 @@ public class GroundSensor : MonoBehaviour
         {
             goomba = collider.gameObject.GetComponent<Goomba>();
             rigidBody.AddForce(Vector2.up * 20, ForceMode2D.Impulse);
-            goomba.Death();
+            goomba.TakeDamage(jumpDamage);
         }
     }
 

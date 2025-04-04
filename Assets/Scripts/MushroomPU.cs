@@ -39,6 +39,7 @@ public class MushroomPU : MonoBehaviour
         {
             Mario playerScript = collision.gameObject.GetComponent<Mario>();
             playerScript.canShoot = true;
+            playerScript.powerUpTimer = 0;
             Interact();
         }
     }

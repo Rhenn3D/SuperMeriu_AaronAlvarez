@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     private Rigidbody2D rigidbody;
     public float bulletForce = 7.5f;
+    public float bulletDamage = 2;
     
 
 
@@ -26,7 +27,7 @@ public class Bullet : MonoBehaviour
         if(collider.gameObject.layer == 6)
         {
             Goomba enemyScript = collider.gameObject.GetComponent<Goomba>();
-            enemyScript.Death();
+            enemyScript.TakeDamage(bulletDamage);
             BulletDeath();
         }
         if(collider.gameObject.CompareTag("Tuberia"))

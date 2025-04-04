@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Mario : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class Mario : MonoBehaviour
     public bool canShoot = false;
     public AudioClip powerUpSFX;
     private SpriteRenderer renderer;
+    public Image PowerUpImage;
 
     void Awake()
     { 
@@ -141,9 +143,11 @@ public class Mario : MonoBehaviour
     void PowerUp()
     {
         powerUpTimer += Time.deltaTime;
+        PowerUpImage.fillAmount = Mathf.InverseLerp(powerUpDuration, 0, powerUpTimer);
         if(powerUpTimer >= powerUpDuration)
         {
             canShoot = false;
+            powerUpTimer = 0;
         }
     }
     
