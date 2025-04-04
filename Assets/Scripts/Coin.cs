@@ -9,6 +9,7 @@ public class Coin : MonoBehaviour
     private AudioSource audioSource;
     public AudioClip CoinSFX;
     private SpriteRenderer renderer;
+    GameManager gameManager;
     
 
 
@@ -17,6 +18,7 @@ public class Coin : MonoBehaviour
         circleCollider = GetComponent<CircleCollider2D>();
         audioSource = GetComponent<AudioSource>();
         renderer = GetComponent<SpriteRenderer>();
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>(); //Como buscar un void de otro script
     }
     void OnTriggerEnter2D(Collider2D collider)
     {
@@ -31,7 +33,7 @@ public class Coin : MonoBehaviour
     void Interact()
     {
     
-    
+        gameManager.AddCoins();
         circleCollider.enabled = false;
         renderer.enabled = false;
         audioSource.PlayOneShot(CoinSFX);
