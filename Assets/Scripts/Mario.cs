@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Mario : MonoBehaviour
 {
@@ -134,7 +135,8 @@ public class Mario : MonoBehaviour
         rigidBody.AddForce(Vector2.up * jumpForce/1.5f, ForceMode2D.Impulse);
         gameManager.isPlaying = false;
         Destroy(gameObject, 2);
-        
+
+        SceneManager.LoadScene(2);        
     
     }
     public void Shoot()

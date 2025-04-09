@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "SuperMeriu_AaronAlvarez.sln"
+    "dotnet.defaultSolution": "SuperMeriu_AaronAlvarez-main.sln"
 }

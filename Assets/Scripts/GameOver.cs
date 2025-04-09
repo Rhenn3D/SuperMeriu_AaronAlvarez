@@ -6,32 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
-    public GameObject gameOverMario;
-    public BoxCollider2D boxCollider;
-    private AudioSource audioSource;
-    public AudioClip SoundGameOver;
-
-    void Awake()
+    public void Retry()
     {
-        boxCollider = GetComponentInChildren <BoxCollider2D>();
-        audioSource = GetComponent<AudioSource>();
-        SoundGameOver = GetComponent<AudioClip>();
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            Mario playerScript = collision.gameObject.GetComponent<Mario>();
-            playerScript.Death();
-            audioSource.PlayOneShot(SoundGameOver);
-
-        }
-        
+        SceneManager.LoadScene(1);
     }
     public void MainMenu()
     {
-        SceneManager.LoadScene(2);
-        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
     }
 }
