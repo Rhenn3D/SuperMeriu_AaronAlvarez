@@ -128,11 +128,13 @@ public class Mario : MonoBehaviour
         Destroy(groundSensor.gameObject);
         inputHorizontal = 0;
         rigidBody.velocity = Vector2.zero;
-        //soundManager.Invoke("DeathBGM", 6);
-        StartCoroutine(soundManager.DeathBGM());
+        soundManager.audioSource.volume = 0;
+        soundManager.Invoke("DeathBGM", 6);
+        //StartCoroutine(soundManager.DeathBGM());
         rigidBody.AddForce(Vector2.up * jumpForce/1.5f, ForceMode2D.Impulse);
         gameManager.isPlaying = false;
         Destroy(gameObject, 2);
+        
     
     }
     public void Shoot()

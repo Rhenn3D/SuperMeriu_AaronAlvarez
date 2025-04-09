@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public GameObject pauseCanvas;
     private int coinCounter = 0; 
     public Text CoinText;
+    private int goombaCounter = 0;
+    public Text GoombaText;
     void Awake()
     {
         soundManager = FindObjectOfType<SoundManager>().GetComponent<SoundManager>();
@@ -20,6 +22,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         CoinText.text = "Coins: " + coinCounter.ToString();
+        GoombaText.text = "Kills: " + goombaCounter.ToString();
     }
     void Update()
     {
@@ -55,5 +58,10 @@ public class GameManager : MonoBehaviour
     {
         coinCounter++;
         CoinText.text = "Coins: " + coinCounter.ToString();
+    }
+    public void AddKills()
+    {
+        goombaCounter++;
+        GoombaText.text = "Kills: " + goombaCounter.ToString();
     }
 }

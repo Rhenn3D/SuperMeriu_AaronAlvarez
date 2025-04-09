@@ -15,6 +15,7 @@ public class Goomba : MonoBehaviour
     public float speed = 5;
     public float maxHealth = 5;
     private float currentHealth;
+    private GameManager gameManager;
 
     private BoxCollider2D boxCollider;
     void Awake()
@@ -24,6 +25,7 @@ public class Goomba : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
         healthBar = GetComponentInChildren<Slider>();
+        gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();
     }
 
     void Start()
@@ -41,12 +43,15 @@ public class Goomba : MonoBehaviour
 
     public void Death()
     {
+        
         audioSource.PlayOneShot(goombadeathSFX);
         direction = 0;
         rigidBody.gravityScale = 0;
         animator.SetTrigger("IsDead");
         boxCollider.enabled = false;
         Destroy(gameObject, goombadeathSFX.length);
+        gameManager.AddKills();
+        
     }
 
     public void TakeDamage(float damage)

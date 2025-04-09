@@ -5,10 +5,10 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
 
-    private AudioSource audioSource;
+    public AudioSource audioSource;
     public AudioClip bgm;
     public AudioClip gameOver;
-    public float delay = 3f; //CRONOMETRO
+    public float delay = 0.5f; //CRONOMETRO
     public float timer; //CRONOMETRO
 
     private GameManager gameManager;
@@ -67,12 +67,28 @@ public class SoundManager : MonoBehaviour
             audioSource.PlayOneShot(gameOver);
         }
     }*/
-    public IEnumerator DeathBGM()
+
+    /*public IEnumerator DeathBGM()
     {
-        audioSource.Stop();
-        yield return new WaitForSeconds(delay);
-        audioSource.PlayOneShot(gameOver);
+        
+        //audioSource.Stop();
+        yield return new WaitForSecondsRealtime(3);
+        Debug.Log("suena?");
+        //audioSource.PlayOneShot(gameOver);
+        audioSource.clip = gameOver;
+        //audioSource.loop = false;
+        audioSource.Play();
+
+    }*/
+
+    public void DeathBGM()
+    {
+        audioSource.volume = 1;
+        audioSource.clip = gameOver;
+        audioSource.loop = false;
+        audioSource.Play();
     }
+
 
     
 }
