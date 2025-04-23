@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public Text CoinText;
     private int goombaCounter = 0;
     public Text GoombaText;
+    public List<GameObject> enemiesInScreen;
     void Awake()
     {
         soundManager = FindObjectOfType<SoundManager>().GetComponent<SoundManager>();
@@ -29,7 +30,15 @@ public class GameManager : MonoBehaviour
         if(Input.GetButtonDown("Pause"))
         {
             Pause();
-        }               
+        }             
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            foreach(GameObject enemy in enemiesInScreen)
+            {
+                Goomba enemyScript = enemy.GetComponent<Goomba>();
+                enemyScript.Death();
+            }
+        }  
     }
     public void MainMenu()
     {

@@ -291,8 +291,12 @@ MonoBehaviour:
   MisteryBoxSFX: {fileID: 8300000, guid: c9e791d9c39700b41b97bbad4850596a, type: 3}
   MisteryBoxSFXOpen: {fileID: 8300000, guid: 3d78289e920c38f4d9e5b17aa96bc632, type: 3}
   mushroomSpawn: {fileID: 189378727939806014}
-  mushroomPrefab: {fileID: 4413365073599182277, guid: bbefe3bd5d352cf4e925aac008f6cee4, type: 3}
+  mushroomPrefab:
+  - {fileID: 1717399504845025474, guid: 0ac0a8d98d9fc5646b88e9ea989d91b2, type: 3}
+  - {fileID: 7976196020454130259, guid: 339eb17495c50f84a89193a07b83f607, type: 3}
+  - {fileID: 4413365073599182277, guid: bbefe3bd5d352cf4e925aac008f6cee4, type: 3}
   mushroomSFX: {fileID: 8300000, guid: 735ac720fe761654ea1e2610ee552207, type: 3}
+  powerUpIndex: 0
 --- !u!95 &5420895399179250947
 Animator:
   serializedVersion: 5

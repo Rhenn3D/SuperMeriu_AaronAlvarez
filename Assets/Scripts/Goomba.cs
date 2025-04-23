@@ -18,6 +18,7 @@ public class Goomba : MonoBehaviour
     private GameManager gameManager;
 
     private BoxCollider2D boxCollider;
+    
     void Awake()
     {
         animator = GetComponent<Animator>();
@@ -26,6 +27,7 @@ public class Goomba : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         healthBar = GetComponentInChildren<Slider>();
         gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();
+        
     }
 
     void Start()
@@ -84,11 +86,13 @@ public class Goomba : MonoBehaviour
     void OnBecameVisible()
     {
         speed = 2;
+        gameManager.enemiesInScreen.Add(gameObject);
     }
 
     void OnBecameInvisible()
     {
         speed = 0;
+        gameManager.enemiesInScreen.Remove(gameObject);
     }
 }
 

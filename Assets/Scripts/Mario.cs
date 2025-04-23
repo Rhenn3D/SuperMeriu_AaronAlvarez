@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Mario : MonoBehaviour
 {
+    [Header("Movimiento")]
     public float playerSpeed = 4.5f;
     public int direction = 1;
     private float inputHorizontal;
@@ -20,9 +21,10 @@ public class Mario : MonoBehaviour
     public AudioClip deadSFX;
 
     private BoxCollider2D boxCollider;
-    private GameManager gameManager;
+    private GameManager gameManager; 
 
-    private SoundManager soundManager;
+    [Header("Cosas Disparo")]
+    [SerializeField] private SoundManager soundManager;
     public Transform bulletSpawn;
     public GameObject bulletPrefab;
     public AudioClip shootSFX;

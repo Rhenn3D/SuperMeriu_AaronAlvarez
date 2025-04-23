@@ -11,9 +11,10 @@ public class MisteryBox : MonoBehaviour
     public AudioClip MisteryBoxSFX;
     public AudioClip MisteryBoxSFXOpen;
     public Transform mushroomSpawn;
-    public GameObject mushroomPrefab;
+    public GameObject[] mushroomPrefab;
     public AudioClip mushroomSFX;
     private bool isOpened = false;
+    public int powerUpIndex;
     
     void Awake()
     {
@@ -27,7 +28,7 @@ public class MisteryBox : MonoBehaviour
         {
             animator.SetTrigger("IsUsed");
             audioSource.clip = MisteryBoxSFX;
-            Instantiate(mushroomPrefab, mushroomSpawn.position, mushroomSpawn.rotation);
+            Instantiate(mushroomPrefab[powerUpIndex], mushroomSpawn.position, mushroomSpawn.rotation);
             isOpened = true;
         }
         else
